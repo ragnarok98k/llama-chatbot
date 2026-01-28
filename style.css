@@ -1,0 +1,113 @@
+/* Modern Glassmorphism Design */
+:root {
+    --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    --glass-bg: rgba(255, 255, 255, 0.9);
+    --user-bubble: #667eea;
+    --llama-bubble: #f0f2f5;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Inter', -apple-system, sans-serif;
+    background: var(--primary-gradient);
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#chat-container {
+    width: 90%;
+    max-width: 500px;
+    height: 80vh;
+    background: var(--glass-bg);
+    backdrop-filter: blur(10px);
+    border-radius: 24px;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.2);
+    overflow: hidden;
+}
+
+#header {
+    padding: 20px;
+    background: white;
+    text-align: center;
+    font-weight: bold;
+    font-size: 1.2rem;
+    color: #333;
+    border-bottom: 1px solid #eee;
+}
+
+#box {
+    flex: 1;
+    padding: 20px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    scrollbar-width: thin;
+}
+
+/* Chat Bubbles */
+.message {
+    padding: 12px 18px;
+    border-radius: 18px;
+    max-width: 80%;
+    line-height: 1.5;
+    font-size: 0.95rem;
+    white-space: pre-line; /* Keeps your line breaks! */
+    animation: fadeIn 0.3s ease;
+}
+
+.user {
+    align-self: flex-end;
+    background: var(--user-bubble);
+    color: white;
+    border-bottom-right-radius: 4px;
+}
+
+.llama {
+    align-self: flex-start;
+    background: var(--llama-bubble);
+    color: #333;
+    border-bottom-left-radius: 4px;
+}
+
+/* Input Area */
+#input-area {
+    padding: 20px;
+    background: white;
+    display: flex;
+    gap: 10px;
+}
+
+input {
+    flex: 1;
+    padding: 12px 20px;
+    border: 2px solid #eee;
+    border-radius: 30px;
+    outline: none;
+    transition: border 0.3s;
+}
+
+input:focus { border-color: #667eea; }
+
+button {
+    background: var(--user-bubble);
+    color: white;
+    border: none;
+    padding: 0 25px;
+    border-radius: 30px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: transform 0.2s;
+}
+
+button:hover { transform: scale(1.05); }
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}

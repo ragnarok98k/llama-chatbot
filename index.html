@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Llama AI - Advanced</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div id="chat-container">
+        <div id="header">Llama 3.1 Assistant</div>
+        
+        <div id="box">
+            <div class="message llama">Hello! How can I help you today?</div>
+        </div>
+
+        <div id="input-area">
+            <input type="text" id="msg" placeholder="Write a message..." onkeypress="if(event.key==='Enter') ask()">
+            <button onclick="ask()">Send</button>
+        </div>
+    </div>
+
+    <script>
+        async function ask() {
+            const msgInput = document.getElementById('msg');
+            const box = document.getElementById('box');
+            const userText = msgInput.value.trim();
+
+            if (!userText) return;
+
+            // Add User Message
+            box.innerHTML += `<div class="message user">${userText}</div>`;
+            msgInput.value = '';
+            box.scrollTop = box.scrollHeight;
+
+            try {
+                const response = await fetch('http://localhost:3000/chat', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({ message: userText })
+                });
+                
+                const data = await response.json();
+                
+                // Add Llama Message
+                box.innerHTML += `<div class="message llama">${data.reply}</div>`;
+                box.scrollTop = box.scrollHeight;
+            } catch (err) {
+                box.innerHTML += `<div class="message llama" style="color: red;">Connection Error. Is your server running?</div>`;
+            }
+        }
+    </script>
+</body>
+</html>
